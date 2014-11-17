@@ -1,6 +1,6 @@
-require "bitballoon/dns_zone"
+require "Netlify/dns_zone"
 
-module BitBalloon
+module Netlify
   class DnsZones < CollectionProxy
     path "/dns_zones"
 

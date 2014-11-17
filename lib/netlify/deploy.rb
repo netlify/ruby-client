@@ -1,4 +1,4 @@
-module BitBalloon
+module Netlify
   class Deploy < Model
     fields :id, :state, :premium, :claimed, :name, :custom_domain, :url,
            :admin_url, :deploy_url, :screenshot_url, :created_at, :updated_at,

@@ -1,4 +1,4 @@
-module BitBalloon
+module Netlify
   class Form < Model
     fields :id, :site_id, :name, :paths, :submission_count, :fields, :created_at
 

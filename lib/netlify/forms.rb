@@ -1,6 +1,6 @@
-require "bitballoon/form"
+require "Netlify/form"
 
-module BitBalloon
+module Netlify
   class Forms < CollectionProxy
     path "/forms"
   end

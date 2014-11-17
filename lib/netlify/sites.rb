@@ -1,7 +1,7 @@
-require "bitballoon/site"
+require "Netlify/site"
 require "digest/sha1"
 
-module BitBalloon
+module Netlify
   class Sites < CollectionProxy
     path "/sites"
 

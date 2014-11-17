@@ -1,6 +1,6 @@
-require "bitballoon/submission"
+require "Netlify/submission"
 
-module BitBalloon
+module Netlify
   class Submissions < CollectionProxy
     path "/submissions"
   end

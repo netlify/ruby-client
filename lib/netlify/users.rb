@@ -1,6 +1,6 @@
-require "bitballoon/user"
+require "Netlify/user"
 
-module BitBalloon
+module Netlify
   class Users < CollectionProxy
     path "/users"
   end

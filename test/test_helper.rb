@@ -1,4 +1,4 @@
-require 'bitballoon'
+require 'Netlify'
 require 'json'
 require 'minitest'
 require 'minitest/autorun'

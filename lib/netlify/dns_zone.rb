@@ -1,6 +1,6 @@
-require "bitballoon/dns_records"
+require "Netlify/dns_records"
 
-module BitBalloon
+module Netlify
   class DnsZone < Model
     fields :id, :name, :user_id, :created_at, :updated_at
 

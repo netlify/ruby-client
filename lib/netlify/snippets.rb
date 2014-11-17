@@ -1,6 +1,6 @@
-require "bitballoon/snippet"
+require "Netlify/snippet"
 
-module BitBalloon
+module Netlify
   class Snippets < CollectionProxy
     path "/snippets"
   end

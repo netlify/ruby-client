@@ -1,4 +1,4 @@
-module BitBalloon
+module Netlify
   class CollectionProxy
     include Enumerable
 
@@ -10,7 +10,7 @@ module BitBalloon
     end
 
     def self.model(value = nil)
-      @model ||= BitBalloon.const_get(to_s.split("::").last.sub(/s$/, ''))
+      @model ||= Netlify.const_get(to_s.split("::").last.sub(/s$/, ''))
     end
 
     def initialize(client, prefix = nil)

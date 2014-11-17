@@ -1,6 +1,6 @@
-require "bitballoon/access_token"
+require "Netlify/access_token"
 
-module BitBalloon
+module Netlify
   class AccessTokens < CollectionProxy
     path "/access_tokens"
   end

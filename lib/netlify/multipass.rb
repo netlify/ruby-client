@@ -4,7 +4,7 @@ require "base64"
 require "time"
 require "json"
 
-module BitBalloon
+module Netlify
   class Multipass
     def initialize(multipass_secret)
       ### Use the Multipass secret to derive two cryptographic keys,

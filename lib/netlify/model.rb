@@ -1,4 +1,4 @@
-module BitBalloon
+module Netlify
   class Model
     attr_reader :client, :attributes, :prefix
 
@@ -21,7 +21,7 @@ module BitBalloon
     end
 
     def self.collection(value = nil)
-      @collection ||= BitBalloon.const_get(to_s.split("::").last + "s")
+      @collection ||= Netlify.const_get(to_s.split("::").last + "s")
     end
 
     def initialize(client, attributes)

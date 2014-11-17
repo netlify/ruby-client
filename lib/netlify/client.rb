@@ -1,16 +1,16 @@
 require 'oauth2'
 
-module BitBalloon
+module Netlify
   class Client
-    ENDPOINT    = ENV['OAUTH_CLIENT_API_URL'] || 'https://www.bitballoon.com'
+    ENDPOINT    = ENV['OAUTH_CLIENT_API_URL'] || 'https://api.netlify.com'
     API_VERSION = "v1"
     RETRIES     = 3
 
-    class BitBalloonError < StandardError; end
-    class NotFoundError < BitBalloonError; end
-    class ConnectionError < BitBalloonError; end
-    class InternalServerError < BitBalloonError; end
-    class AuthenticationError < BitBalloonError; end
+    class NetlifyError < StandardError; end
+    class NotFoundError < NetlifyError; end
+    class ConnectionError < NetlifyError; end
+    class InternalServerError < NetlifyError; end
+    class AuthenticationError < NetlifyError; end
 
     attr_accessor :client_id, :client_secret, :oauth, :access_token, :endpoint
 
@@ -67,7 +67,7 @@ module BitBalloon
     def request(verb, path, opts={}, &block)
       retries = 0
       begin
-        raise AuthenticationError, "Authorize with BitBalloon before making requests" unless oauth_token
+        raise AuthenticationError, "Authorize with Netlify before making requests" unless oauth_token
 
         oauth_token.request(verb, ::File.join("/api", API_VERSION, path), opts, &block)
       rescue OAuth2::Error => e
@@ -84,7 +84,7 @@ module BitBalloon
             raise InternalServerError, message_for(e, "Internal Server Error")
           end
         else
-          raise BitBalloonError, message_for(e, "OAuth2 Error")
+          raise NetlifyError, message_for(e, "OAuth2 Error")
         end
       rescue Faraday::Error::ConnectionFailed, Faraday::Error::TimeoutError => e
         if retry_request?(verb, e.response && e.response.status, retries)

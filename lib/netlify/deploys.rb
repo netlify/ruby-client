@@ -1,6 +1,6 @@
-require "bitballoon/deploy"
+require "Netlify/deploy"
 
-module BitBalloon
+module Netlify
   class Deploys < CollectionProxy
     path "/deploys"
 

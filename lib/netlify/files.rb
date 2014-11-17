@@ -1,6 +1,6 @@
-require "bitballoon/file"
+require "Netlify/file"
 
-module BitBalloon
+module Netlify
   class Files < CollectionProxy
     path "/files"
   end

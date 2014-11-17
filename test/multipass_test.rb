@@ -3,7 +3,7 @@ require 'digest/sha1'
 
 class MultipassTest < MiniTest::Unit::TestCase
   def setup
-    @mp = BitBalloon::Multipass.new("secret")
+    @mp = Netlify::Multipass.new("secret")
   end
 
   def test_generate_and_decode_token

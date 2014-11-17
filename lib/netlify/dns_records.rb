@@ -1,6 +1,6 @@
-require "bitballoon/dns_record"
+require "Netlify/dns_record"
 
-module BitBalloon
+module Netlify
   class DnsRecords < CollectionProxy
     path "/dns_records"
   end
