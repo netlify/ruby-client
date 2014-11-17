@@ -197,50 +197,33 @@ deploy = site.deploys.create(:dir => "/tmp/my-site", :draft => true)
 
 This will upload and process a deploy. You can view the deploy at `deploy.deploy_url` and make it the live version of the site with `deploy.publish`.
 
+Continuous Deployment
+=====================
 
-Users
-=====
+You can also configure continuous deployment for a new or existing site from the Ruby client.
 
-Access all users you have access to
+You'll need a Github access token (this will never get sent to Netlify) in addition to your Netlify token. Make sure this access token have the permission to add a deploy key and a web hook to your repository.
+
+Create a new site with continuous deployment:
 
 ```ruby
-Netlify.users.all
+client.sites.create(:github => {
+    :repo => "netlify/example",
+    :dir => "build",
+    :cmd => "middleman build",
+    :access_token => GITHUB_ACCESS_TOKEN
+})
 ```
 
-Access a specific user
+Configure continuous deployment for an existing site:
 
 ```ruby
-Netlify.users.get(id)
-```
-
-Create a user. **Reseller only**. A unique email is required. You can optionally include a unique uid, typically the database ID you use for the user on your end.
-
-```ruby
-Netlify.users.create(:email => "some@email.com", :uid => "12345")
-```
-
-Update a user. **Reseller only**.
-
-```ruby
-Netlify.users.get(id).update(:email => "new@email.com", :uid => "12345")
-```
-
-Delete a user. **Reseller only**
-
-```ruby
-Netlify.users.get(id).destroy
-```
-
-Get all sites for a user
-
-```ruby
-Netlify.users.get(id).sites
-```
-
-Get all form submissions for a user
-
-```ruby
-Netlify.users.get(id).submissions
+site.configure_github!(
+  :repo => "netlify/example",
+  :dir => "build",
+  :cmd => "middleman build",
+  :access_token => GITHUB_ACCESS_TOKEN
+)
 ```
 
 Forms
@@ -360,64 +343,4 @@ Remove a snippet
 ```ruby
 site.snippet.get(id).destroy
 end
-```
-
-DNS Zones
-=========
-
-Resellers can manage DNS Zones through the ruby client. To use this feature your access token must belong to a reseller administrator.
-
-Create a DNS Zone
-
-```ruby
-Netlify.dns_zones.create(:name => "www.example.com", :user_id => "1234")
-```
-
-Get all DNS Zones
-
-```ruby
-Netlify.dns_zones.all
-```
-
-Delete a DNS Zone
-
-```ruby
-dns_zone.destroy
-```
-
-Get all dns records for a zone
-
-```ruby
-dns_zone.dns_records.all
-```
-
-Adding a new record (supported types: A, CNAME, TXT, MX)
-
-```ruby
-dns_zone.dns_records.create(:hostname => "www", :type => "CNAME", :value => "Netlify.com", :ttl => "500")
-```
-
-Deleting a record
-
-```ruby
-dns_record.destroy
-```
-
-Access Tokens
-=============
-
-Resellers can create and revoke access tokens on behalf of their users. To use this feature your access token must belong to a reseller administrator.
-
-Create access token:
-
-```ruby
-Netlify.access_tokens.create(:user => {:email => "test@example.com", :uid => 123})
-```
-
-The user must have either an email or a uid or both. Both email and uid must be unique within your reseller account. The uid would typically correspond to your internal database id for the user. If the users doesn't exist, a new user will be created on the fly.
-
-Revoke access token:
-
-```ruby
-Netlify.access_tokens.get("token-string").destroy
 ```

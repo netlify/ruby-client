@@ -45,14 +45,22 @@ module Netlify
       github = Github.new(:oauth_token => options[:access_token])
       deploy_key = client.deploy_keys.create({})
       github.repos.keys.create(user, repo, title: "Netlify", key: deploy_key.public_key)
-      site.update(:github => {
-        :repo => options[:repo],
-        :deploy_key_id => deploy_key.id,
-        :dir => options[:dir],
-        :cmd => options[:cmd],
-        :branch => options[:branch],
-        :env => options[:env]
+      response = client.request(:put, path, :body => {
+        :github => {
+          :repo => options[:repo],
+          :deploy_key_id => deploy_key.id,
+          :dir => options[:dir],
+          :cmd => options[:cmd],
+          :branch => options[:branch],
+          :env => options[:env]
+        }
       })
+      process(response.parsed)
+      github.repos.hooks.create(user, repo, name: "web", active: true, events: ["push"], config: {
+        url: deploy_hook,
+        content_type: 'json'
+      })
+      self
     end
 
     def destroy!

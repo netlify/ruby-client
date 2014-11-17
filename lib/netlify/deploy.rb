@@ -32,7 +32,6 @@ module Netlify
       while !(ready?)
         sleep 5
         refresh
-        puts "Got state: #{state}"
         raise "Error processing site: #{error_message}" if error?
         yield(self) if block_given?
         raise "Timeout while waiting for ready" if Time.now - start > timeout
