@@ -52,6 +52,10 @@ module Netlify
       Submissions.new(self)
     end
 
+    def deploy_keys
+      DeployKeys.new(self)
+    end
+
     def users
       Users.new(self)
     end

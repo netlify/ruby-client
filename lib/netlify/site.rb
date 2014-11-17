@@ -4,8 +4,8 @@ require 'uri'
 module Netlify
   class Site < Model
     fields :id, :state, :premium, :claimed, :name, :custom_domain, :url,
-           :admin_url, :deploy_id, :deploy_url, :screenshot_url, :created_at, :updated_at,
-           :password, :notification_email, :user_id, :error_message, :required
+           :admin_url, :deploy_id, :build_id, :deploy_url, :screenshot_url, :created_at, :updated_at,
+           :password, :notification_email, :user_id, :error_message, :required, :deploy_hook
 
     def ready?
       state == "current"
@@ -30,6 +30,29 @@ module Netlify
         self.deploy_id = deploy.id
       end
       self
+    end
+
+    def configure_github!(options)
+      raise Client::NetlifyError, "You must specify a Github access_token" unless options[:access_token]
+      raise Client::NetlifyError, "You must specify a Github repo" unless options[:repo]
+      require "github_api"
+
+      _, user, repo = *options[:repo].match(/^([^\/]+)\/([^\/]+)$/)
+      unless user && repo
+        raise Client::NetlifyError, "Invalid github repo #{options[:repo]}"
+      end
+
+      github = Github.new(:oauth_token => options[:access_token])
+      deploy_key = client.deploy_keys.create({})
+      github.repos.keys.create(user, repo, title: "Netlify", key: deploy_key.public_key)
+      site.update(:github => {
+        :repo => options[:repo],
+        :deploy_key_id => deploy_key.id,
+        :dir => options[:dir],
+        :cmd => options[:cmd],
+        :branch => options[:branch],
+        :env => options[:env]
+      })
     end
 
     def destroy!
