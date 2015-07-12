@@ -1,4 +1,4 @@
-require "Netlify/dns_zone"
+require "netlify/dns_zone"
 
 module Netlify
   class DnsZones < CollectionProxy

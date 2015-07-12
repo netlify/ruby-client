@@ -1,4 +1,4 @@
-require "Netlify/submission"
+require "netlify/submission"
 
 module Netlify
   class Submissions < CollectionProxy

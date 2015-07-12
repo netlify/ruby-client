@@ -1,4 +1,4 @@
-require "Netlify/snippet"
+require "netlify/snippet"
 
 module Netlify
   class Snippets < CollectionProxy

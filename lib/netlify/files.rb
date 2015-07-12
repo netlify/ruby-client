@@ -1,4 +1,4 @@
-require "Netlify/file"
+require "netlify/file"
 
 module Netlify
   class Files < CollectionProxy

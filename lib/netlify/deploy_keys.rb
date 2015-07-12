@@ -1,4 +1,4 @@
-require "Netlify/deploy_key"
+require "netlify/deploy_key"
 
 module Netlify
   class DeployKeys < CollectionProxy

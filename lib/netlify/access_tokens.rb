@@ -1,4 +1,4 @@
-require "Netlify/access_token"
+require "netlify/access_token"
 
 module Netlify
   class AccessTokens < CollectionProxy

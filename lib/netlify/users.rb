@@ -1,4 +1,4 @@
-require "Netlify/user"
+require "netlify/user"
 
 module Netlify
   class Users < CollectionProxy

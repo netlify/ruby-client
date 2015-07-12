@@ -1,4 +1,4 @@
-require "Netlify/form"
+require "netlify/form"
 
 module Netlify
   class Forms < CollectionProxy

@@ -1,4 +1,4 @@
-require "Netlify/dns_records"
+require "netlify/dns_records"
 
 module Netlify
   class DnsZone < Model

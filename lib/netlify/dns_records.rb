@@ -1,4 +1,4 @@
-require "Netlify/dns_record"
+require "netlify/dns_record"
 
 module Netlify
   class DnsRecords < CollectionProxy

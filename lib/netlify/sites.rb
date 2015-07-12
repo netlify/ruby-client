@@ -1,4 +1,4 @@
-require "Netlify/site"
+require "netlify/site"
 require "digest/sha1"
 
 module Netlify

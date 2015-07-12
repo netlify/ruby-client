@@ -1,4 +1,4 @@
-require "Netlify/deploy"
+require "netlify/deploy"
 
 module Netlify
   class Deploys < CollectionProxy
