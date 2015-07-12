@@ -73,7 +73,8 @@ module Netlify
       begin
         raise AuthenticationError, "Authorize with Netlify before making requests" unless oauth_token
 
-        oauth_token.request(verb, ::File.join("/api", API_VERSION, path), opts, &block)
+        ssl_options = {:version => :TLSv1_2}
+        oauth_token.request(verb, ::File.join("/api", API_VERSION, path), ssl_options.merge(opts), &block)
       rescue OAuth2::Error => e
         case e.response.status
         when 401
