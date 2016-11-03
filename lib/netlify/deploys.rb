@@ -20,6 +20,13 @@ module Netlify
           :headers => {"Content-Type" => "application/zip"}
         )
         Deploy.new(client, response.parsed)
+      elsif attributes[:tar]
+        request_path = attributes[:draft] ? "#{path}?draft=true" : path
+        response = client.request(:post, request_path,
+          :body => ::File.read(attributes[:tar]),
+          :headers => {"Content-Type" => "application/x-gzip"}
+        )
+        Deploy.new(client, response.parsed)
       else
         raise "Need dir or zip to create a deploy"
       end

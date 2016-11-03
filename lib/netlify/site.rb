@@ -25,7 +25,7 @@ module Netlify
     def update(attributes)
       response = client.request(:put, path, :body => mutable_attributes(attributes))
       process(response.parsed)
-      if attributes[:zip] || attributes[:dir]
+      if attributes[:zip] || attributes[:tar] || attributes[:dir]
         deploy = deploys.create(attributes)
         self.deploy_id = deploy.id
       end
