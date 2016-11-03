@@ -1,11 +1,15 @@
 # -*- encoding: utf-8 -*-
-lib = File.expand_path('../lib', __FILE__)
-$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'Netlify/version'
+#
+d = File.read(File.expand_path("../lib/netlify/version.rb", __FILE__))
+if d =~ /VERSION = "(\d+\.\d+\.\d+)"/
+  version = $1
+else
+  version = "0.0.1"
+end
 
 Gem::Specification.new do |gem|
   gem.name          = "netlify"
-  gem.version       = Netlify::VERSION
+  gem.version       = version
   gem.authors       = ["Mathias Biilmann Christensen"]
   gem.email         = ["mathias@Netlify.com"]
   gem.description   = %q{API Client for Netlify}
