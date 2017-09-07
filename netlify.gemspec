@@ -24,7 +24,8 @@ Gem::Specification.new do |gem|
   gem.add_dependency "oauth2", ">=  0.9.2"
   gem.add_dependency "slop"
   gem.add_dependency "highline"
-  gem.add_dependency "github_api"
+  gem.add_dependency "octokit"
   gem.add_development_dependency "minitest"
   gem.add_development_dependency "webmock"
+  gem.add_development_dependency "rake"
 end

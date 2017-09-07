@@ -37,14 +37,17 @@ module Netlify
       raise Client::NetlifyError, "You must specify a Github repo" unless options[:repo]
       require "github_api"
 
-      _, user, repo = *options[:repo].match(/^([^\/]+)\/([^\/]+)$/)
+      nwo = *options[:repo]
+      _, user, repo = nwo.match(/^([^\/]+)\/([^\/]+)$/)
       unless user && repo
         raise Client::NetlifyError, "Invalid github repo #{options[:repo]}"
       end
 
-      github = Github.new(:oauth_token => options[:access_token])
+      github = Octokit::Client.new(:oauth_token => options[:access_token])
       deploy_key = client.deploy_keys.create({})
-      github.repos.keys.create(user, repo, title: "Netlify", key: deploy_key.public_key)
+
+      github.add_deploy_key(nwo, "Netlify", deploy_key.public_key)
+
       response = client.request(:put, path, :body => {
         :github => {
           :repo => options[:repo],
@@ -55,11 +58,9 @@ module Netlify
           :env => options[:env]
         }
       })
+
       process(response.parsed)
-      github.repos.hooks.create(user, repo, name: "web", active: true, events: ["push"], config: {
-        url: deploy_hook,
-        content_type: 'json'
-      })
+      github.create_hook(nwo, "web", {url: deploy_hook, content_type: 'json'}, {active: true, events: ["push", "pull_request", "delete"]}
       self
     end
 
