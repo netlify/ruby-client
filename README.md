@@ -1,4 +1,6 @@
-Netlify Ruby Client
+# This code is deprecated.  Our current API interface can be found here:  https://github.com/netlify/open-api/
+
+## Netlify Ruby Client
 ======================
 
 Netlify is a hosting service for the programmable web. It understands your documents, processes forms and lets you do deploys, manage forms submissions, inject javascript snippets into sites and do intelligent updates of HTML documents through it's API.
@@ -13,7 +15,7 @@ The basic flow to using the ruby client is:
 
 If you'd rather, there's also a command line utility to handle most of these steps: `Netlify deploy`.
 
-Installation
+## Installation
 ============
 
 Install the gem by running
@@ -25,7 +27,7 @@ or put it in a Gemfile and run `bundle install`
     gem netlify
 
 
-Authenticating
+## Authenticating
 ==============
 
 Register a new application at https://app.netlify.com/applications to get your Oauth2 secret and key.
@@ -67,7 +69,7 @@ And the client will be ready to do requests without having to use `authorize_fro
 If you're authenticating via the `access_token` and you'd like to test if you have a valid `access_token`, you can attempt to make a request with the Netlify client and if the token is invalid, a `Netlify::Client::AuthenticationError` will be raised. See Miles Matthias' [Netlify Rakefile](https://github.com/milesmatthias/Netlify-rakefile) for an example.
 
 
-Sites
+## Sites
 =====
 
 Getting a list of all sites you have access to:
@@ -154,7 +156,7 @@ Deleting a site:
     site.destroy!
 ```
 
-Deploys
+## Deploys
 =======
 
 Access all deploys for a site
@@ -197,7 +199,7 @@ deploy = site.deploys.create(:dir => "/tmp/my-site", :draft => true)
 
 This will upload and process a deploy. You can view the deploy at `deploy.deploy_url` and make it the live version of the site with `deploy.publish`.
 
-Continuous Deployment
+## Continuous Deployment
 =====================
 
 You can also configure continuous deployment for a new or existing site from the Ruby client.
@@ -296,7 +298,7 @@ Reading a file:
     file.read
 ```
 
-Snippets
+## Snippets
 ========
 
 Snippets are small code snippets injected into all HTML pages of a site right before the closing head or body tag. To get all snippets for a site:
